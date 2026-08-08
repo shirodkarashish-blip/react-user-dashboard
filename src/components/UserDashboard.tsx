@@ -1,6 +1,12 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState, createContext } from 'react'
 import UserDetails from './UserDetails';
 
+interface UserContextType {
+  users: User[] | null;
+  // login: (username: string, email: string) => void;
+  // logout: () => void;
+}
+export const UserDashboardContext = createContext<UserContextType | null>(null);
 interface Geo {
   lat: string;
   lng: string;
@@ -140,12 +146,13 @@ const UserDashboard = () => {
           ))}
         </div>
       )}
-
-      <UserDetails
-        user={selectedUser}
-        show={showModal}
-        onClose={() => setShowModal(false)}
-      />
+      <UserDashboardContext.Provider value={{ users }}>
+        <UserDetails
+          user={selectedUser}
+          show={showModal}
+          onClose={() => setShowModal(false)}
+        />
+      </UserDashboardContext.Provider>
     </div>
 
         </>

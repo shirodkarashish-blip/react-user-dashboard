@@ -1,3 +1,6 @@
+
+import {useContext} from 'react'; //useContext import added to use the context in UserDetails component
+import { UserDashboardContext } from './UserDashboard';
 interface UserDetailsProps {
   user: any;
   show: boolean;
@@ -5,6 +8,8 @@ interface UserDetailsProps {
 }
 
 const UserDetails = ({ user, show, onClose }: UserDetailsProps) => {
+
+  const usersList = useContext(UserDashboardContext);
   if (!user) return null;
 
   return (
@@ -27,6 +32,7 @@ const UserDetails = ({ user, show, onClose }: UserDetailsProps) => {
           </div>
 
           <div className="modal-body">
+            <p><strong>Total User:</strong> {usersList?.users?.length || 0}</p>
             <p><strong>Email:</strong> {user.email}</p>
             <p><strong>Phone:</strong> {user.phone}</p>
             <p><strong>Website:</strong> {user.website}</p>
