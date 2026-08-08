@@ -96,7 +96,7 @@ const UserDashboard = () => {
         <div className="container py-4">
       <div className="d-flex justify-content-between align-items-center mb-4">
         <div>
-          <h2 className="fw-bold mb-1">User Dashboard</h2>
+          <h2 className="card-title mb-3">User Dashboard</h2>
           <p className="text-muted mb-0">A Sample user layout</p>
         </div>
         <span className="badge bg-primary fs-6">{users.length} users</span>

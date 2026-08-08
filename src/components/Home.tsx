@@ -5,7 +5,7 @@ const Home = () => {
     <section className="bg-light rounded-4 p-5 mt-4 shadow-sm">
       <div className="container px-1 py-2">
         <div className="row align-items-center">
-            <h1>Citizen Wellbeing Program to get Health Benefits</h1>
+            <h3>Citizen Wellbeing Program For Health Benefits</h3>
           <div className="col-lg-12 text-left mt-8 mt-lg-0">
             <div className="p-4 bg-white rounded-4 shadow-sm">
                 <h2 className="h4">Southern Cross Info Hub</h2>

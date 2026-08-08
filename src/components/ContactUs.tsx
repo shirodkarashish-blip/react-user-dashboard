@@ -6,9 +6,54 @@ const ContactUs = () => {
   const [skills, setSkills] = useState('');
   const [email, setEmail] = useState('');
   const [submitted, setSubmitted] = useState(false);
+const [errors, setErrors] = useState<{
+  name?: string;
+  phone?: string;
+  skills?: string;
+  email?: string;
+}>({});
 
+const validateForm = () => {
+  const newErrors: typeof errors = {};
+
+  if (!name.trim()) {
+    newErrors.name = 'Please enter your full name.';
+  }
+
+  const phonePattern = /^\+?[0-9\s\-()]{7,20}$/;
+  if (!phone.trim()) {
+    newErrors.phone = 'Please enter your phone number.';
+  } else if (!phonePattern.test(phone)) {
+    newErrors.phone = 'Enter a valid phone number.';
+  }
+
+  if (!email.trim()) {
+    newErrors.email = 'Please enter your email address.';
+  } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+    newErrors.email = 'Enter a valid email address.';
+  }
+
+  if (skills.trim()) {
+    const invalidSkill =
+      skills
+        .split(',')
+        .some((skill) => skill.trim().length === 0);
+    if (invalidSkill) {
+      newErrors.skills = 'Use comma-separated skills without empty items.';
+    }
+  }
+
+  setErrors(newErrors);
+  return Object.keys(newErrors).length === 0;
+};
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
+     event.preventDefault();
+
+     if (!validateForm()) {
+        setSubmitted(true);
+        return;
+     }
+   
     setSubmitted(true);
   };
 
@@ -44,6 +89,10 @@ const ContactUs = () => {
                       placeholder="Enter your full name"
                       required
                     />
+
+                    {errors.name && (
+                      <div className="text-danger mt-1">{errors.name}</div>
+                    )}
                   </div>
 
                   <div className="mb-3">
@@ -59,6 +108,9 @@ const ContactUs = () => {
                       placeholder="Enter your phone number"
                       required
                     />
+                    {errors.phone && (
+                      <div className="text-danger mt-1">{errors.phone}</div>
+                    )}  
                   </div>
 
                   <div className="mb-3">
@@ -73,6 +125,9 @@ const ContactUs = () => {
                       onChange={(event) => setSkills(event.target.value)}
                       placeholder="List your skills separated by commas"
                     />
+                    {errors.skills && (
+                      <div className="text-danger mt-1">{errors.skills}</div>
+                    )}  
                   </div>
 
                   <div className="mb-4">
@@ -88,9 +143,12 @@ const ContactUs = () => {
                       placeholder="Enter your email address"
                       required
                     />
+                    {errors.email && (
+                      <div className="text-danger mt-1">{errors.email}</div>
+                    )}
                   </div>
 
-                  <button type="submit" className="btn btn-primary btn-lg w-100">
+                  <button type="submit" className="btn btn-primary btn-lg w-10">
                     Submit
                   </button>
                 </form>
